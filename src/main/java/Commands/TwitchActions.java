@@ -20,6 +20,9 @@ public class TwitchActions {
 	private static String apiKey;
 	private String channel = "ogn_lol";
 	
+	/**
+	 * Set up the twitch apikey, from the twitch.properties file
+	 */
 	public TwitchActions() {
 		Properties properties = new Properties();
         try {
@@ -32,7 +35,11 @@ public class TwitchActions {
         }
         apiKey = properties.getProperty("twitch.apikey");
 	}
-	
+	/**
+	 * 
+	 * @return false or true, depending if the stream is live or not
+	 * @throws IOException
+	 */
 	public Boolean getLiveStream() throws IOException{
 		try {
 			HttpResponse<JsonNode> jsonResponse = Unirest.get("https://api.twitch.tv/kraken/streams/"+channel)
@@ -56,6 +63,11 @@ public class TwitchActions {
 		
 	}
 	
+	/**
+	 * Return an Object as value because it can be castable as a String, or as a String array
+	 * @param json
+	 * @return a Map of <String, Object> (representing the Key>Value of the json passed)
+	 */
 	private Map<String, Object> getStreamDatas(JSONObject json){
 		 HashMap<String, Object> result = new HashMap<String, Object>();
 		Iterator<?> keys = json.keys();
