@@ -1,5 +1,7 @@
 package Commands;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 import Tools.JsonFunctions;
@@ -17,7 +19,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.managers.AudioManager;
 
-public class MessageListenerActions extends ListenerAdapter{
+public class MessageListenerActions extends ListenerAdapter implements PropertyChangeListener{
 
 	private boolean relou = true;
 	private JDA jda;
@@ -40,6 +42,22 @@ public class MessageListenerActions extends ListenerAdapter{
 		return this.jda;
 	}
 	
+	/**
+	 * On channelIsLiveEvent triggered, 
+	 * send a message to the specified channel with a link the channel
+	 */
+	public void propertyChange(PropertyChangeEvent event) {
+		String channel = event.getPropertyName();
+		jda.getGuildById("234661550282113026").getTextChannelById("313747898258948106").sendMessage(
+				String.format("%s est maintenant Live ! Mais tout le monde s'en fou.%s https://www.twitch.tv/%s", 
+						channel, System.getProperty("line.separator"), channel)
+				).complete();
+		
+		jda.getGuildById("234661550282113026").getTextChannelById("273164492156698624").sendMessage(
+				String.format("%s est maintenant Live ! Mais tout le monde s'en fou.%s https://www.twitch.tv/%s", 
+						channel, System.getProperty("line.separator"), channel)
+				).complete();
+	}
 	/**
 	 * General function that analyze a message content and call the appropriate function
 	 */
@@ -295,4 +313,5 @@ public class MessageListenerActions extends ListenerAdapter{
 		}*/
 		
 	}
+	
 }

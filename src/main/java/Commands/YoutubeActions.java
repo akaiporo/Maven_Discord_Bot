@@ -107,7 +107,7 @@ public class YoutubeActions {
             SearchListResponse searchResponse = search.execute();
             List<SearchResult> searchResultList = searchResponse.getItems();
 
-               return prettyPrint(searchResultList.iterator(), queryTerm);
+            return prettyPrint(searchResultList.iterator(), queryTerm);
     }
 	/**
 	 * Iterate through the results, dans take the last one (So, the first video in the list)

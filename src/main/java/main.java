@@ -1,16 +1,15 @@
 
 import java.io.IOException;
+import java.util.Timer;
 
 import javax.security.auth.login.LoginException;
 
 import Commands.MessageListenerActions;
 import Commands.TwitchActions;
 import GraphicElements.statusFrame;
-import Tools.JsonFunctions;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.events.DisconnectEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -27,11 +26,11 @@ public class main extends ListenerAdapter{
 		//sausage prod  MzExOTU3NTA2MDYwNDUxODQ0.C_j2UA.Kw_S88wmdzUD32AeNMIIjsAmiMk 
 		MessageListenerActions messageListener = new MessageListenerActions(jda);
 		messageListener.addListener();
-		 
-		JsonFunctions json = new JsonFunctions("Akai");
-		//json.addAllGuildMembers(jda);
 		TwitchActions ta = new TwitchActions();
-		System.out.println(ta.getLiveStream());
+		ta.addPropertyChangeListener(messageListener);
+		
+		Timer timer = new Timer();
+		timer.schedule(ta, 0, 90000); //90000ms = 1.5 minutes.
 		
 		statusFrame frame = new statusFrame(jda);
 	
